@@ -4,6 +4,13 @@ from .models import Post
 
 # Create your views here.
 class PostList(generic.ListView):
+    queryset = Post.objects.filter(status=1)
+    template_name = "blog/index.html"
+    paginate_by = 6
+
+
+def post_detail(request, slug):
+
     """
     Display an individual :model: `blog.Post`.
 
@@ -21,7 +28,10 @@ class PostList(generic.ListView):
     post = get_object_or_404(queryset, slug=slug)
 
     return render(
-    request,
-    "blog/post_detail.html",
-    {"post": post},
+        request,
+        "blog/post_detail.html",
+        {"post": post,
+        "coder": "zaki"},
     )
+
+    
